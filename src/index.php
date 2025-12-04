@@ -95,8 +95,8 @@
         </div>
     <?php endif; ?>
 
-    <h1>ShareRide</h1>
-    <p style="font-size: 14px; margin-bottom: 25px;">CODERWANDA</p>
+    <h1>NEW VERSION</h1>
+    <p style="font-size: 14px; margin-bottom: 25px;">NEW VERSION</p>
 
     <div class="menu">
         <a href="registration.php">Register</a>
@@ -104,7 +104,7 @@
     </div>
 
     <div class="footer">
-        &copy; <?php echo date("Y"); ?> ShareRide Platform
+        &copy; <?php echo date("Y"); ?> NewVesion Platform
     </div>
 </div>
 
