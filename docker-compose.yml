@@ -18,7 +18,7 @@ services:
       MYSQL_DATABASE: 25rp18841_exam_shareride_db
     volumes:
       - db-data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./database/database.sql:/docker-entrypoint-initdb.d/database.sql:ro
     restart: unless-stopped
 
   25rp18841_exam_phpmyadmin:
