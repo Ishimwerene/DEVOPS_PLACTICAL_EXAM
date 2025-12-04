@@ -60,12 +60,41 @@
           font-size: 13px;
           color: #666;
       }
+
+      /* ERROR MESSAGE */
+      .error-box {
+          background: #ffdddd;
+          color: #b30000;
+          padding: 10px;
+          border-left: 4px solid #ff5050;
+          border-radius: 6px;
+          margin-bottom: 20px;
+          font-size: 14px;
+      }
+
+      .success-box {
+          background: #ddffdd;
+          color: #006600;
+          padding: 10px;
+          border-left: 4px solid #33cc33;
+          border-radius: 6px;
+          margin-bottom: 20px;
+          font-size: 14px;
+      }
+
   </style>
 </head>
 
 <body>
 
 <div class="container">
+
+    <?php if (isset($_GET['login']) && $_GET['login'] === 'failed'): ?>
+        <div class="error-box">
+            ❌ Login failed! Invalid email or password.
+        </div>
+    <?php endif; ?>
+
     <h1>ShareRide</h1>
     <p style="font-size: 14px; margin-bottom: 25px;">CODERWANDA</p>
 
