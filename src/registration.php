@@ -2,10 +2,10 @@
 // registration.php
 session_start();
 
-$db_host = '25rp188411_db';
+$db_host = '25rp18841_exam_db';
 $db_user = 'root';
 $db_pass = 'rootpassword';
-$db_name = '25rp188411_shareride_db';
+$db_name = '25rp18841_exam_shareride_db';
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 if ($conn->connect_error) {
@@ -13,7 +13,6 @@ if ($conn->connect_error) {
 }
 
 $errors = [];
-$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstname = trim($_POST['firstname'] ?? '');
@@ -22,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email     = trim($_POST['email'] ?? '');
     $password  = $_POST['password'] ?? '';
 
+    // Validation
     if (!$firstname || !$lastname || !$email || !$password) {
         $errors[] = "Please fill in all required fields.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -29,22 +29,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
+        // Check existing email
         $stmt = $conn->prepare("SELECT user_id FROM tbl_users WHERE user_email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
+
         if ($stmt->num_rows > 0) {
             $errors[] = "Email already registered.";
         } else {
             $stmt->close();
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO tbl_users (user_firstname, user_lastname, user_gender, user_email, user_password) VALUES (?,?,?,?,?)");
+
+            $stmt = $conn->prepare(
+                "INSERT INTO tbl_users (user_firstname, user_lastname, user_gender, user_email, user_password) VALUES (?,?,?,?,?)"
+            );
             $stmt->bind_param("sssss", $firstname, $lastname, $gender, $email, $hashed);
+
             if ($stmt->execute()) {
-                $success = "Registration successful. You may <a href='login.php'>login</a> now.";
+                // SUCCESS → redirect to login page
+                header("Location: login.php?signup=success");
+                exit();
             } else {
                 $errors[] = "Registration failed: " . $conn->error;
             }
+
             $stmt->close();
         }
     }
@@ -107,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           border-radius: 8px;
           font-size: 15px;
           cursor: pointer;
-          transition: 0.3s;
       }
       button:hover {
           background: #1e8449;
@@ -116,15 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           background: #ffe6e6;
           color: #c0392b;
           border-left: 4px solid #e74c3c;
-          padding: 10px 12px;
-          margin-bottom: 15px;
-          border-radius: 6px;
-          font-size: 14px;
-      }
-      .success-box {
-          background: #e8f8f0;
-          color: #1e8449;
-          border-left: 4px solid #2ecc71;
           padding: 10px 12px;
           margin-bottom: 15px;
           border-radius: 6px;
@@ -157,10 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php foreach ($errors as $e) echo "<li>" . htmlspecialchars($e) . "</li>"; ?>
             </ul>
         </div>
-    <?php endif; ?>
-
-    <?php if ($success): ?>
-        <div class="success-box"><?php echo $success; ?></div>
     <?php endif; ?>
 
     <form method="post" action="">
