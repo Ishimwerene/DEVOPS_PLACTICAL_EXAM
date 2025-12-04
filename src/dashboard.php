@@ -88,7 +88,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="navbar">
         <div class="logo">
-            <strong>ShareRide Dashboard</strong>
+            <strong>NEW VERSION Dashboard</strong>
         </div>
         <div class="menu">
             <a href="index.php">Home</a>
@@ -103,19 +103,7 @@ if (!isset($_SESSION['user_id'])) {
 
         <p style="color:#666;">You are successfully logged in.</p>
 
-        <div class="section-title">Quick Actions</div>
 
-        <div class="card">
-            <p><strong>Create or Post a Ride</strong></p>
-            <p>Share your car ride with others traveling the same direction.</p>
-            <a class="btn" href="#">Post a Ride</a>
-        </div>
-
-        <div class="card">
-            <p><strong>View Available Rides</strong></p>
-            <p>Find rides posted by other users and join.</p>
-            <a class="btn" href="#">Browse Rides</a>
-        </div>
 
     </div>
 
