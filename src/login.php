@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $hash)) {
 
             // SUCCESS
-            $_SESSION['login_message'] = "Well logged in!";
+            $_SESSION['login_message'] = "Well logged in!!";
             $_SESSION['user_id'] = $user_id;
             $_SESSION['user_firstname'] = $firstname;
 

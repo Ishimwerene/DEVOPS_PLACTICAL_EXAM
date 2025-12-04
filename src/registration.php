@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: login.php?signup=success");
                 exit();
             } else {
-                $errors[] = "Registration failed: " . $conn->error;
+                $errors[] = "Registration failed!: " . $conn->error;
             }
 
             $stmt->close();
